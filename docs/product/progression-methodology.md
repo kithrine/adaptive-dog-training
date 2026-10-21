@@ -68,7 +68,7 @@ Each skill passes through four phases; the phase shapes reward schedule and succ
 
 ## 7. Daily agenda constraints
 
-Defaults; tunable in `engine-config.md`.
+Defaults; tunable in `../architecture/engine-config.md`.
 
 | ID | Constraint | Default |
 |---|---|---|
