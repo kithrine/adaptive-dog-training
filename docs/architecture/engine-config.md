@@ -197,3 +197,17 @@ interface EngineConfig {
 | ai.cacheHitAlertBelow | 0.5 | |
 
 Validation: `ai.models.*` MUST be non-empty strings; every `ai.limits` entry MUST have `timeoutMs` ≥ 500; `ai.budgets.free.usdPerDay` MUST be ≤ `ai.budgets.premium.usdPerDay` (CFG-016 to CFG-018).
+
+## 7. Entitlement and free-tier defaults (added Session 5)
+
+The `entitlement` block is extended to `{ trialDays: number; graceDays: number; freeDailyItems: number }`.
+
+| Key | Default | Source |
+|---|---|---|
+| entitlement.trialDays | 14 | D-052 |
+| entitlement.graceDays | 7 | FM past_due |
+| entitlement.freeDailyItems | 1 | D-052 |
+| ai.budgets.free.perDay | coaching 1, exerciseRender 1, noteInterpretation 1, questionnaireFollowup 0 | D-052, D-047 |
+| ai.budgets.free.usdPerDay | 0.03 | |
+
+Validation CFG-019: `entitlement.freeDailyItems` ≥ 1 (the free tier always trains something, FM-012).
