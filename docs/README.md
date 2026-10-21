@@ -25,7 +25,8 @@ Biscuit is an adaptive dog-training coach: a rules-driven progression engine bui
 | product | `feedback-model.md` — three-tier session feedback | written (Session 0) |
 | product | `training-frameworks/*.md` — one per skill (v0 founder drafts; deep research session replaces them) | v0 (Session 0) |
 | product | `safety-escalation.md`, `freemium-model.md` | planned (Session 5) |
-| architecture | `adaptive-engine-spec.md`, `engine-config.md` | planned (Session 1) |
+| architecture | `adaptive-engine-spec.md` — deterministic pipeline, rules ENG-, reason objects, Tier 3 triggers | written (Session 1) |
+| architecture | `engine-config.md` — every tunable number, schema, defaults, validation | written (Session 1) |
 | architecture | `data-model.md`, `framework-schema.md` | planned (Session 2) |
 | architecture | `ai-orchestration.md` | planned (Session 3) |
 | architecture | `architecture.md`, `tech-stack.md`, `api-spec.md`, `security-and-privacy.md` | planned (Session 4) |

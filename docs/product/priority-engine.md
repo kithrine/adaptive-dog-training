@@ -70,7 +70,7 @@ Confidence = 0.35·success + 0.20·consistency + 0.15·latency + 0.20·environme
 |---|---|---|
 | success | Recent success proportion | Tier 1 |
 | consistency | Low variance across recent sessions | Tier 1 history |
-| latency | Response speed (fast = fluent) | Tier 3 chip when asked; otherwise neutral default (Session 1 decides whether to zero-weight) |
+| latency | Response speed (fast = fluent) | **Weight 0 in MVP config (D-034)**; term retained for a future signal (timers, video). Other weights renormalize to success 0.41, consistency 0.24, environments 0.24, recency 0.11 |
 | environments | Number of environments with success at this stage | Exercise environment + note signals |
 | recency | Decays with days since last successful session | Session dates |
 
