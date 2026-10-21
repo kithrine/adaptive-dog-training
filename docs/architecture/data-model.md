@@ -248,3 +248,9 @@ Migrations seed `breeds`, `skill_groups`, `skills`, the first `engine_config_ver
 
 ---
 **Why**: The chat's architect listed six entities (User, Dog, Skill, SkillProgress, Session, DailyAgenda) and said SkillProgress "becomes one of the most important tables in the system." Session 2 made three choices on top of that: frameworks are one JSON document per version because the engine reads them whole and nothing queries across stages (D-040); the agenda item doubles as the session record so plan and actual never drift (D-041); progress is materialized but always rebuildable from history so a progression bug is recoverable (D-042). The RLS split, where users can only touch feedback columns through a validated function, is what keeps "engine outputs are engine-owned" true at the database level rather than by convention.
+
+## 8. Additions from Session 5 (entitlement)
+
+- `profiles.trial_started_at`, `profiles.trial_ends_at` (timestamptz): app-managed 14-day trial (FM-002). Set by the profile-creation trigger.
+- `trial_ledger` (pk `email_hash` text, `trial_started_at`): survives account purge so a re-created account within 90 days does not restart the trial (FM-003). Contains no reversible PII.
+- `getEntitlement(profile, subscription, now)` is the single derivation (FM-001); `subscriptions.status` gains `past_due` handling with `entitlement.graceDays`.

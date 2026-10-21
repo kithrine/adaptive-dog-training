@@ -176,7 +176,6 @@ See `../planning/project-brief.md` §7. The single most important MVP metric is 
 | Framework JSON schema | 2 | `../architecture/framework-schema.md` |
 | LLM prompts, schemas, budgets | 3 | `../architecture/ai-orchestration.md` |
 | Billing provider, push, PWA details | 4 | `../architecture/tech-stack.md` |
-| Screening questions, escalation copy, gating, pricing | 5 | `safety-escalation.md`, `freemium-model.md` |
 
 ---
 **Why**: The PRD v1 from June was a solid vision statement but left the engine's behavior as "the AI adapts the training." v2 keeps the same scope and makes every behavior a numbered, testable requirement, pushes engine specifics into the architecture docs, and adds the requirements discovery implied but never wrote down (fallbacks when AI is unavailable, agenda immutability for started sessions, structured notes, skip reasons, deletion).
