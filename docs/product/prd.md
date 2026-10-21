@@ -65,12 +65,15 @@ Assess → Training Path → Daily Agenda → Session → Feedback → Coaching 
 
 | ID | Requirement |
 |---|---|
-| FR-050 | The home screen MUST be today's agenda (D-013): the list of training sessions for today, each with skill, stage name, estimated minutes, and a total for the day. |
+| FR-050 | The home screen MUST be today's agenda (D-013): an ordered list of mini-sessions with no clock times (D-036), each with skill, stage name, estimated minutes, and a total for the day, plus a routine strip for continuous tracks such as potty. |
 | FR-051 | The engine MUST generate an agenda horizon of 3 days. Only today MUST be shown by default; the next two days MAY be previewed and MUST be labeled as subject to change. |
 | FR-052 | The agenda MUST respect the owner's stated minutes per day and sessions per day, and the engine's per-session limits (`progression-methodology.md` §6). |
 | FR-053 | The agenda MUST be regenerated after every submitted session feedback, after any profile change affecting priority, and at least once per calendar day in the user's timezone. |
 | FR-054 | A regenerated agenda MUST NOT change a session the user has already started or completed today. |
 | FR-055 | Users MUST be able to skip a session with a reason (no time / dog unwell / other). Skips are signals, not failures. |
+| FR-056 | Users MUST be able to do sessions in any order. Users MUST NOT be able to edit exercise parameters or stages (D-038). |
+| FR-057 | When the engine activates a deferred goal, the coaching message MUST announce it and the user MUST be able to swap it for another deferred goal within the configured window (D-037). |
+| FR-058 | After a gap of 5 or more days the first day back MUST use comeback mode (lighter agenda, advancement frozen until re-verified), with coaching that normalizes the gap (D-039). |
 
 ### 3.7 Exercises
 
@@ -85,8 +88,9 @@ Assess → Training Path → Daily Agenda → Session → Feedback → Coaching 
 
 | ID | Requirement |
 |---|---|
-| FR-070 | After a session the user MUST be able to submit: completed (yes / partially / no) and a success rating. The structure of the rating and its mapping to engine signals is specified in `feedback-model.md`. |
+| FR-070 | After a session the user MUST be able to submit: completed (yes / partially / no) and the skill's Tier 1 success question, whose form is defined by the framework's measurement type (D-033) and specified in `feedback-model.md`. |
 | FR-071 | Notes MUST be optional and free text. |
+| FR-075 | An optional difficulty tap (too hard / about right / too easy) MUST be available beside the rating. It MUST NOT alter the success value (D-038). |
 | FR-072 | Required feedback MUST be submittable in under 30 seconds on a phone (two taps plus one rating). |
 | FR-073 | The AI MAY ask one follow-up question when the rating is low, the notes mention a problem, or the engine detects a signal (fatigue, fear, plateau) that notes could disambiguate. The user MUST be able to dismiss it. |
 | FR-074 | Free-text notes MUST be converted by the AI into structured signals (distraction type, severity, environment, owner-execution issue, health flag) before the engine consumes them (D-021). The raw note is stored; the engine never parses raw text. |
@@ -169,7 +173,6 @@ See `../planning/project-brief.md` §7. The single most important MVP metric is 
 
 | Item | Session | Doc |
 |---|---|---|
-| Exact rating-to-signal mapping | 1 | `feedback-model.md`, `../architecture/adaptive-engine-spec.md` |
 | Framework JSON schema | 2 | `../architecture/framework-schema.md` |
 | LLM prompts, schemas, budgets | 3 | `../architecture/ai-orchestration.md` |
 | Billing provider, push, PWA details | 4 | `../architecture/tech-stack.md` |

@@ -20,14 +20,18 @@ Timing target: Tier 1 under 30 seconds on a phone (FR-072). Tier 3 MUST NOT appe
 
 The original framework thresholds are written in success-rate terms (for example "80% over the last 3 sessions"), while the original feedback design was a 1–5 star rating. A star rating is a feeling; a success rate is a count. They are not interchangeable, and this gap is risk R-06.
 
-**MVP rating MUST capture an approximate success proportion, not satisfaction.** Two candidate designs go to Session 1:
+**The Tier 1 question is defined by the skill's framework measurement type (D-033).** A single global widget cannot serve "out of ten tries" and "accidents today" at once.
 
-| Option | Tier 1 input | Engine signal | Trade-off |
+| Measurement type | Skills | Tier 1 question | Stored |
 |---|---|---|---|
-| A. Proportion chips | "How often did Bailey get it right?" → Almost never / Less than half / About half / Most of the time / Almost every time | Mapped to 10 / 30 / 50 / 75 / 95 % | Still one tap; semantically a rate; coarse but honest. |
-| B. Count entry | "Out of 10 tries, how many did Bailey get?" → numeric 0–10 (or reps attempted / succeeded) | Exact rate | Best signal; one more tap and some owners do not count reps. |
+| `cue_progression` | recall, sit/down/stay, tricks, foundations components | "Out of N tries, how many did {dog} get?" N = the exercise's repetitions; quick-pick row 0..N (one tap) | success = k/N, precision `counted` |
+| `interval_progression` | leash walking | "How much of the walk was the leash loose?" hardly any / under half / about half / most / almost all | 0.1 / 0.3 / 0.5 / 0.75 / 0.95, precision `banded` |
+| `management_count` | potty, jumping, barking | The skill's own count: "Accidents today?", "Jumps per greeting?", "Attention barks today?" | framework score function over count vs baseline/target, precision `counted` |
+| `exposure_checklist` | socialization | "How did {dog} react?" relaxed / neutral / worried / fearful | 1.0 / 0.75 / 0.3 / 0.0; `fearful` also raises a fear signal |
 
-Either way the stored value is a success proportion (0–1) with a `precision` flag (`banded` or `counted`) so the engine can weight it. "Completed: no" MUST NOT produce a success value at all; it is a skip signal.
+The stored value is always a success proportion (0–1) with a `precision` flag so the engine can weight banded data below counted data (`../architecture/engine-config.md` `signals.bandedWeight`). "Completed: no" MUST NOT produce a success value; it is a skip signal with a reason.
+
+An optional **difficulty tap** (too hard / about right / too easy) sits beside the rating (D-038). It never changes the success value; it adjusts the active D within the stage and can shorten the advance window (`../architecture/adaptive-engine-spec.md` ENG-053).
 
 ## 4. Signals produced per session
 
@@ -40,7 +44,7 @@ Either way the stored value is a success proportion (0–1) with a `precision` f
 | structured note signals | AI interpretation of Tier 2 (FR-074): distraction type, severity, environment, owner-execution issue, health flag, fear/stress indicator | Secondary adaptation signals, coaching guidance lookup |
 | follow-up answer | Tier 3 | Same as note signals, higher confidence |
 
-Latency (response speed) and environment count feed the confidence score (`priority-engine.md` §4). In MVP, environment is taken from the exercise's planned environment plus any note signal; latency is captured only via Tier 3 chips ("Did Bailey respond right away or hesitate?") when the engine asks. Session 1 decides whether latency stays in the MVP confidence formula or is weighted to zero until a better signal exists.
+Environment count feeds the confidence score (`priority-engine.md` §4); in MVP, environment is taken from the exercise's planned environment plus any note or follow-up signal. Latency (response speed) is weighted to zero in MVP config (D-034) because no reliable signal measures it; the term stays in the formula for when one exists.
 
 ## 5. Coaching response contract
 

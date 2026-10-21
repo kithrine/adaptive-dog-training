@@ -6,9 +6,9 @@ Status: **scope brief** for the research session (D-030). No stage data yet.
 
 The umbrella track for puppies 8–16 weeks that is not a single cue: name recognition, marker/clicker charging, handling and body-touch tolerance, bite inhibition and mouthing redirection, crate introduction (shared with home-alone), impulse control basics (wait at doors, food bowl), confidence-building games, and the household routine. It is the track that makes the other skills trainable and is what a first-time owner means by "I'm raising a puppy."
 
-## Open design question for Session 1–2
+## Shape (decided, D-035)
 
-Whether Puppy Foundations is one skill with many stages, or a bundle of small skills (name, marker, handling, bite inhibition, impulse control) that the priority engine schedules individually. The engine spec must choose; the research session fills whichever shape is chosen. Current lean: a bundle of small skills grouped under one user-facing label, because they progress independently and the priority engine should be able to raise bite inhibition without raising handling.
+Puppy Foundations is a **skill group**: each component (name recognition, marker charging, handling tolerance, bite inhibition, impulse control, crate introduction) is its own small skill tree with its own priority score and progression. The Training Path and Today screens show them under the single label "Puppy Foundations". At most `agenda.groupMaxConcurrent` components advance at once (`../../architecture/engine-config.md`). The research session fills each component as a separate framework file or as sections of this file with distinct skill ids.
 
 ## What the research session must produce
 
