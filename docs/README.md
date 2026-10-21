@@ -30,7 +30,10 @@ Biscuit is an adaptive dog-training coach: a rules-driven progression engine bui
 | architecture | `data-model.md` — Supabase tables, RLS, rebuild, seeds | written (Session 2) |
 | architecture | `framework-schema.md` — typed framework document, FS- validation, versioning, example | written (Session 2) |
 | architecture | `ai-orchestration.md` — four AI jobs, call contract, sequencing, guardrails, budgets, evals | written (Session 3) |
-| architecture | `architecture.md`, `tech-stack.md`, `api-spec.md`, `security-and-privacy.md` | planned (Session 4) |
+| architecture | `architecture.md` — one Next.js app, flows, engine integration, PWA, environments | written (Session 4) |
+| architecture | `tech-stack.md` — stack table, rules, env vars, exclusions | written (Session 4) |
+| architecture | `api-spec.md` — operations, payloads, crons, admin, idempotency | written (Session 4) |
+| architecture | `security-and-privacy.md` — RLS, secrets, AI controls, advice safety, privacy, launch checklist | written (Session 4) |
 | ux | `ux-spec.md`, `user-flows.md`, `wireframe-spec.md`, `wireframes-layouts.md`, `visual-design-reference.md`, `content-and-tone.md` | planned (Session 6) |
 | stories | `epics.md`, `epic-NN-*.md` | planned (Session 7) |
 | ops | `deployment.md`, `environments-and-config.md`, `observability.md`, `testing-strategy.md`, `runbook.md` | planned (Session 8) |
