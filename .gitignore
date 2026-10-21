@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# next.js
+.next/
+out/
+next-env.d.ts
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# vercel / supabase local
+.vercel/
+supabase/.temp/
+supabase/.branches/
+
+# os / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# logs / coverage
+*.log
+coverage/
+
+# local memory buffers (plugin)
+.remember/
