@@ -158,3 +158,42 @@ Changes are admin edits that create a new draft version; publishing is a second 
 
 ---
 **Why**: The chat's PM said he would "explicitly prohibit the architect from hardcoding these values anywhere in the application; the entire weighting system should live in configuration and eventually become remotely adjustable." This document makes that enforceable: one schema, one defaults table that is also the first published version, and validation that fails closed. Latency is kept in the schema at weight zero so that enabling it later is a config publish, not a release.
+
+## 6. AI configuration block (added Session 3)
+
+The same published config document carries an `ai` block consumed by `ai-orchestration.md`. It is versioned, validated, and published with the rest (CFG-001 to CFG-005).
+
+```ts
+interface EngineConfig {
+  // ... sections above ...
+  ai: {
+    models: { questionnaireFollowup: string; exerciseRender: string; coaching: string; noteInterpretation: string }; // "provider/model" gateway strings
+    promptVersions: { questionnaireFollowup: number; exerciseRender: number; coaching: number; noteInterpretation: number };
+    limits: Record<AiJob, { timeoutMs: number; maxOutputTokens: number }>;
+    budgets: Record<"free" | "premium", { perDay: Record<AiJob, number>; usdPerDay: number }>;
+    globalDailyUsd: number;
+    bannedTerms: string[];
+    sampleRate: number;           // 0–1 share of calls kept for quality review
+    cacheHitAlertBelow: number;   // 0–1
+  };
+}
+```
+
+| Key | Default | Note |
+|---|---|---|
+| ai.models.questionnaireFollowup / coaching | `anthropic/claude-sonnet-5-5` | strong tier (D-044) |
+| ai.models.exerciseRender / noteInterpretation | `anthropic/claude-haiku-5-5` | fast tier (D-044) |
+| ai.promptVersions.* | 1 | |
+| ai.limits.questionnaireFollowup | 2500 ms / 300 tokens | |
+| ai.limits.exerciseRender | 4000 ms / 800 tokens | |
+| ai.limits.coaching | 6000 ms / 400 tokens | streamed; first token target 1.5 s |
+| ai.limits.noteInterpretation | 2000 ms / 200 tokens | bounded before the engine run (AI-021) |
+| ai.budgets.premium.perDay | coaching 12, exerciseRender 15, noteInterpretation 12, questionnaireFollowup 6 | |
+| ai.budgets.premium.usdPerDay | 0.25 | |
+| ai.budgets.free.* | set in `../product/freemium-model.md` (Session 5) | D-047 |
+| ai.globalDailyUsd | 50 | raise with user count |
+| ai.bannedTerms | prong, pinch collar, e-collar, shock, alpha roll, dominance, pack leader, choke chain, scruff | AI-032 |
+| ai.sampleRate | 0.05 | |
+| ai.cacheHitAlertBelow | 0.5 | |
+
+Validation: `ai.models.*` MUST be non-empty strings; every `ai.limits` entry MUST have `timeoutMs` ≥ 500; `ai.budgets.free.usdPerDay` MUST be ≤ `ai.budgets.premium.usdPerDay` (CFG-016 to CFG-018).
